@@ -8,19 +8,23 @@ A ideia nasce da experiência de Jefferson Andrade Coelho em produção, confer�
 
 ## Estado atual
 
-Primeira versão funcional, executada no IntelliJ IDEA. Nesta etapa, o programa trabalha com um produto e quantidades definidas diretamente no código.
+Versão executada no IntelliJ IDEA. O programa recebe pelo teclado o nome de um produto e as quantidades esperada e recebida, utilizando `Scanner`.
 
-- Exibe o produto e as quantidades esperada e recebida.
+- Recebe pelo teclado e exibe o produto e as quantidades esperada e recebida.
 - Calcula a diferença entre as quantidades.
 - Informa quantas unidades faltam ou sobram.
 - Indica quando a quantidade recebida está correta.
 
-A entrada pelo teclado, o cadastro de vários produtos e o histórico de conferências ainda não foram implementados.
+O cadastro de vários produtos, a validação da entrada e o histórico de conferências ainda não foram implementados.
 
 ## Exemplo de execução
 
 ```text
 === CONFERE ===
+Nome do produto: Fertilizante A
+Quantidade esperada: 50
+Quantidade recebida: 48
+
 Produto: Fertilizante A
 Quantidade esperada: 50
 Quantidade recebida: 48
@@ -48,7 +52,7 @@ O programa utiliza `if`, `else if` e `else` para escolher a mensagem corresponde
 - IntelliJ IDEA.
 - Git para versionamento.
 - Variáveis `String` e `int`, subtração, comparações e condições.
-- Saída no console com `System.out.println`.
+- Entrada pelo teclado com `Scanner` e saída no console.
 
 Não há bibliotecas externas. Esta versão não precisa de Docker, Spring Boot ou banco de dados.
 
@@ -61,11 +65,11 @@ Não há bibliotecas externas. Esta versão não precisa de Docker, Spring Boot 
 3. Confira em **File → Project Structure → Project** se o SDK é o JDK 21.
 4. Abra [`src/Main.java`](src/Main.java).
 5. Clique no triângulo verde ao lado do método `main` e selecione **Run**. Também é possível executar a configuração `Confere`.
-6. Consulte o resultado na janela **Run**.
+6. Na janela **Run**, digite o nome do produto e pressione Enter. Depois, informe cada quantidade, pressionando Enter após cada uma.
 
 ### Experimentar outros resultados
 
-Altere somente o valor de `quantidadeRecebida` em `Main.java` e execute novamente:
+Execute novamente e digite as quantidades pelo teclado para experimentar:
 
 | Quantidade esperada | Quantidade recebida | Resultado esperado |
 | --- | --- | --- |
@@ -79,7 +83,7 @@ Esses três cenários foram verificados na primeira versão. Os valores desta et
 
 | Arquivo | Responsabilidade |
 | --- | --- |
-| `src/Main.java` | Dados do exemplo, cálculo, condições e exibição do resultado |
+| `src/Main.java` | Entrada pelo teclado, cálculo, condições e exibição do resultado |
 | `README.md` | Objetivo, funcionamento e instruções de execução |
 | `Confere.iml` e `.idea/` | Configuração do projeto e da execução no IntelliJ |
 | `.gitignore` | Exclusão de arquivos compilados e configurações locais do versionamento |
@@ -88,7 +92,7 @@ Esses três cenários foram verificados na primeira versão. Os valores desta et
 
 Evoluções planejadas, a serem desenvolvidas conforme o aprendizado:
 
-- [ ] Receber o nome do produto e as quantidades pelo teclado com `Scanner`.
+- [x] Receber o nome do produto e as quantidades pelo teclado com `Scanner`.
 - [ ] Validar os dados informados.
 - [ ] Permitir realizar uma nova conferência sem reiniciar o programa.
 - [ ] Trabalhar com vários produtos.

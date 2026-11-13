@@ -1,13 +1,23 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        String produto = "Fertilizante A";
-        int quantidadeEsperada = 50;
-        int quantidadeRecebida = 48;
+        Scanner entrada = new Scanner(System.in);
+
+        System.out.println("=== CONFERE ===");
+        System.out.print("Nome do produto: ");
+        String produto = entrada.nextLine();
+
+        System.out.print("Quantidade esperada: ");
+        int quantidadeEsperada = entrada.nextInt();
+
+        System.out.print("Quantidade recebida: ");
+        int quantidadeRecebida = entrada.nextInt();
 
         // Valor negativo indica falta; positivo indica sobra.
         int diferenca = quantidadeRecebida - quantidadeEsperada;
 
-        System.out.println("=== CONFERE ===");
+        System.out.println();
         System.out.println("Produto: " + produto);
         System.out.println("Quantidade esperada: " + quantidadeEsperada);
         System.out.println("Quantidade recebida: " + quantidadeRecebida);
@@ -20,5 +30,7 @@ public class Main {
         } else {
             System.out.println("Resultado: quantidade correta.");
         }
+
+        entrada.close();
     }
 }
