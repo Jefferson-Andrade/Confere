@@ -14,8 +14,11 @@ Versão executada no IntelliJ IDEA. O programa recebe pelo teclado o nome de um 
 - Calcula a diferença entre as quantidades.
 - Informa quantas unidades faltam ou sobram.
 - Indica quando a quantidade recebida está correta.
+- Impede nome de produto vazio ou composto apenas por espaços.
+- Aceita somente quantidades inteiras entre 0 e 2147483647.
+- Solicita novamente apenas o campo inválido, sem encerrar com erro.
 
-O cadastro de vários produtos, a validação da entrada e o histórico de conferências ainda não foram implementados.
+O cadastro de vários produtos e o histórico de conferências ainda não foram implementados.
 
 ## Exemplo de execução
 
@@ -53,6 +56,8 @@ O programa utiliza `if`, `else if` e `else` para escolher a mensagem corresponde
 - Git para versionamento.
 - Variáveis `String` e `int`, subtração, comparações e condições.
 - Entrada pelo teclado com `Scanner` e saída no console.
+- Repetição com `while`, método `lerQuantidade` e conversão com `Integer.parseInt`.
+- Tratamento de entrada inválida com `try/catch` e `NumberFormatException`.
 
 Não há bibliotecas externas. Esta versão não precisa de Docker, Spring Boot ou banco de dados.
 
@@ -77,7 +82,9 @@ Execute novamente e digite as quantidades pelo teclado para experimentar:
 | 50 | 50 | Quantidade correta |
 | 50 | 53 | Sobram 3 unidades |
 
-Esses três cenários foram verificados na primeira versão. Os valores desta etapa representam quantidades inteiras não negativas; ainda não há validação de entrada.
+As quantidades devem ser números inteiros entre 0 e 2147483647, inclusive. Zero é permitido. Números negativos, letras, decimais, campos vazios e números acima desse limite são recusados; o programa pede novamente o mesmo campo. O nome do produto também não pode ficar vazio. Espaços no início e no fim dos campos são removidos.
+
+Por exemplo, ao digitar `-2` ou `abc` em uma quantidade, aparece a mensagem `Informe um número inteiro entre 0 e 2147483647.`. Digite um valor válido para continuar. A conferência só é calculada depois que todos os campos forem aceitos. Se a entrada terminar antes disso, o programa encerra sem apresentar resultado parcial.
 
 ## Estrutura principal
 
@@ -93,7 +100,7 @@ Esses três cenários foram verificados na primeira versão. Os valores desta et
 Evoluções planejadas, a serem desenvolvidas conforme o aprendizado:
 
 - [x] Receber o nome do produto e as quantidades pelo teclado com `Scanner`.
-- [ ] Validar os dados informados.
+- [x] Validar os dados informados.
 - [ ] Permitir realizar uma nova conferência sem reiniciar o programa.
 - [ ] Trabalhar com vários produtos.
 - [ ] Registrar justificativas para divergências e controlar o encerramento da conferência.
