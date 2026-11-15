@@ -5,32 +5,93 @@ public class Main {
         Scanner entrada = new Scanner(System.in);
 
         System.out.println("=== CONFERE ===");
-        System.out.print("Nome do produto: ");
-        String produto = entrada.nextLine();
 
-        System.out.print("Quantidade esperada: ");
-        int quantidadeEsperada = entrada.nextInt();
+        do {
+            String produto = "";
+            while (produto.isEmpty()) {
+                System.out.print("Nome do produto: ");
+                if (!entrada.hasNextLine()) {
+                    entrada.close();
+                    return;
+                }
+                produto = entrada.nextLine().trim();
+                if (produto.isEmpty()) {
+                    System.out.println("Informe o nome do produto.");
+                }
+            }
 
-        System.out.print("Quantidade recebida: ");
-        int quantidadeRecebida = entrada.nextInt();
+            int quantidadeEsperada = lerQuantidade(entrada, "Quantidade esperada: ");
+            if (quantidadeEsperada < 0) {
+                entrada.close();
+                return;
+            }
 
-        // Valor negativo indica falta; positivo indica sobra.
-        int diferenca = quantidadeRecebida - quantidadeEsperada;
+            int quantidadeRecebida = lerQuantidade(entrada, "Quantidade recebida: ");
+            if (quantidadeRecebida < 0) {
+                entrada.close();
+                return;
+            }
 
-        System.out.println();
-        System.out.println("Produto: " + produto);
-        System.out.println("Quantidade esperada: " + quantidadeEsperada);
-        System.out.println("Quantidade recebida: " + quantidadeRecebida);
-        System.out.println("Diferença: " + diferenca);
+            // Valor negativo indica falta; positivo indica sobra.
+            int diferenca = quantidadeRecebida - quantidadeEsperada;
 
-        if (diferenca < 0) {
-            System.out.println("Resultado: faltam " + (-diferenca) + " unidades.");
-        } else if (diferenca > 0) {
-            System.out.println("Resultado: sobram " + diferenca + " unidades.");
-        } else {
-            System.out.println("Resultado: quantidade correta.");
-        }
+            System.out.println();
+            System.out.println("Produto: " + produto);
+            System.out.println("Quantidade esperada: " + quantidadeEsperada);
+            System.out.println("Quantidade recebida: " + quantidadeRecebida);
+            System.out.println("Diferença: " + diferenca);
 
+            if (diferenca < 0) {
+                System.out.println("Resultado: faltam " + (-diferenca) + " unidades.");
+            } else if (diferenca > 0) {
+                System.out.println("Resultado: sobram " + diferenca + " unidades.");
+            } else {
+                System.out.println("Resultado: quantidade correta.");
+            }
+
+        } while (desejaContinuar(entrada));
+
+        System.out.println("Programa encerrado.");
         entrada.close();
+    }
+
+    private static boolean desejaContinuar(Scanner entrada) {
+        while (true) {
+            System.out.print("Deseja conferir outro produto? (s/n): ");
+            if (!entrada.hasNextLine()) {
+                return false;
+            }
+
+            String resposta = entrada.nextLine().trim();
+            if (resposta.equalsIgnoreCase("s")) {
+                System.out.println();
+                return true;
+            }
+            if (resposta.equalsIgnoreCase("n")) {
+                return false;
+            }
+            System.out.println("Opção inválida. Digite s para continuar ou n para sair.");
+        }
+    }
+
+    private static int lerQuantidade(Scanner entrada, String mensagem) {
+        while (true) {
+            System.out.print(mensagem);
+            // -1 sinaliza o fim da entrada; nunca é uma quantidade válida.
+            if (!entrada.hasNextLine()) {
+                return -1;
+            }
+
+            String texto = entrada.nextLine().trim();
+            try {
+                int quantidade = Integer.parseInt(texto);
+                if (quantidade >= 0) {
+                    return quantidade;
+                }
+            } catch (NumberFormatException erro) {
+                // Letras, decimais e números fora do limite de int são inválidos.
+            }
+            System.out.println("Informe um número inteiro entre 0 e 2147483647.");
+        }
     }
 }
