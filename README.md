@@ -17,6 +17,7 @@ Versão executada no IntelliJ IDEA. O programa recebe pelo teclado o nome de um 
 - Impede nome de produto vazio ou composto apenas por espaços.
 - Aceita somente quantidades inteiras entre 0 e 2147483647.
 - Solicita novamente apenas o campo inválido, sem encerrar com erro.
+- Permite conferir outro produto sem reiniciar o programa, com a opção `s/n`.
 
 O cadastro de vários produtos e o histórico de conferências ainda não foram implementados.
 
@@ -33,6 +34,8 @@ Quantidade esperada: 50
 Quantidade recebida: 48
 Diferença: -2
 Resultado: faltam 2 unidades.
+Deseja conferir outro produto? (s/n): n
+Programa encerrado.
 ```
 
 ## Regra de comparação
@@ -56,7 +59,7 @@ O programa utiliza `if`, `else if` e `else` para escolher a mensagem corresponde
 - Git para versionamento.
 - Variáveis `String` e `int`, subtração, comparações e condições.
 - Entrada pelo teclado com `Scanner` e saída no console.
-- Repetição com `while`, método `lerQuantidade` e conversão com `Integer.parseInt`.
+- Repetição com `while` e `do/while`, métodos `lerQuantidade` e `desejaContinuar` e conversão com `Integer.parseInt`.
 - Tratamento de entrada inválida com `try/catch` e `NumberFormatException`.
 
 Não há bibliotecas externas. Esta versão não precisa de Docker, Spring Boot ou banco de dados.
@@ -71,10 +74,11 @@ Não há bibliotecas externas. Esta versão não precisa de Docker, Spring Boot 
 4. Abra [`src/Main.java`](src/Main.java).
 5. Clique no triângulo verde ao lado do método `main` e selecione **Run**. Também é possível executar a configuração `Confere`.
 6. Na janela **Run**, digite o nome do produto e pressione Enter. Depois, informe cada quantidade, pressionando Enter após cada uma.
+7. Após o resultado, digite `s` para conferir outro produto ou `n` para sair. Letras maiúsculas e espaços nas extremidades também são aceitos; outras respostas fazem o programa repetir a pergunta.
 
 ### Experimentar outros resultados
 
-Execute novamente e digite as quantidades pelo teclado para experimentar:
+Digite `s` após cada resultado e informe um novo produto e suas quantidades para experimentar:
 
 | Quantidade esperada | Quantidade recebida | Resultado esperado |
 | --- | --- | --- |
@@ -85,6 +89,8 @@ Execute novamente e digite as quantidades pelo teclado para experimentar:
 As quantidades devem ser números inteiros entre 0 e 2147483647, inclusive. Zero é permitido. Números negativos, letras, decimais, campos vazios e números acima desse limite são recusados; o programa pede novamente o mesmo campo. O nome do produto também não pode ficar vazio. Espaços no início e no fim dos campos são removidos.
 
 Por exemplo, ao digitar `-2` ou `abc` em uma quantidade, aparece a mensagem `Informe um número inteiro entre 0 e 2147483647.`. Digite um valor válido para continuar. A conferência só é calculada depois que todos os campos forem aceitos. Se a entrada terminar antes disso, o programa encerra sem apresentar resultado parcial.
+
+Cada nova conferência começa com os campos vazios e utiliza apenas os dados do novo produto. Os resultados aparecem no console, mas ainda não são armazenados em histórico. Se a entrada terminar na pergunta `s/n`, o programa encerra normalmente.
 
 ## Estrutura principal
 
@@ -101,7 +107,7 @@ Evoluções planejadas, a serem desenvolvidas conforme o aprendizado:
 
 - [x] Receber o nome do produto e as quantidades pelo teclado com `Scanner`.
 - [x] Validar os dados informados.
-- [ ] Permitir realizar uma nova conferência sem reiniciar o programa.
+- [x] Permitir realizar uma nova conferência sem reiniciar o programa.
 - [ ] Trabalhar com vários produtos.
 - [ ] Registrar justificativas para divergências e controlar o encerramento da conferência.
 - [ ] Estudar o armazenamento do histórico de conferências.
