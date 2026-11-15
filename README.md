@@ -116,4 +116,4 @@ Evoluções planejadas, a serem desenvolvidas conforme o aprendizado:
 
 **Jefferson Andrade Coelho** — estudante de Análise e Desenvolvimento de Sistemas, em transição para desenvolvimento Java.
 
-Projeto desenvolvido com apoio de IA. O foco é estudar cada parte do código, compreender as regras e ganhar autonomia nas próximas implementações.
+O foco do projeto é estudar cada parte do código, compreender as regras e ganhar autonomia nas próximas implementações.
