@@ -13,6 +13,7 @@ Versão executada no IntelliJ IDEA. O programa recebe pelo teclado o nome de um 
 - Recebe pelo teclado e exibe o produto e as quantidades esperada e recebida.
 - Calcula a diferença entre as quantidades.
 - Informa quantas unidades faltam ou sobram.
+- Solicita uma justificativa quando há falta ou sobra e registra `A apurar` se o campo ficar em branco.
 - Indica quando a quantidade recebida está correta.
 - Impede nome de produto vazio ou composto apenas por espaços.
 - Aceita somente quantidades inteiras entre 0 e 2147483647.
@@ -27,6 +28,7 @@ Versão executada no IntelliJ IDEA. O programa recebe pelo teclado o nome de um 
 Nome do produto: Fertilizante A
 Quantidade esperada: 50
 Quantidade recebida: 48
+Justificativa da divergência (Enter para registrar A apurar): Entrega parcial do fornecedor.
 
 Produto: Fertilizante A
 Quantidade esperada: 50
@@ -38,6 +40,7 @@ Deseja conferir outro produto? (s/n): n
 === RESUMO DA CONFERÊNCIA ===
 Total de itens conferidos: 1
 Fertilizante A | Esperada: 50 | Recebida: 48 | faltam 2 unidades.
+  Justificativa: Entrega parcial do fornecedor.
 Programa encerrado.
 ```
 
@@ -64,7 +67,7 @@ O programa utiliza `if`, `else if` e `else` para escolher a mensagem corresponde
 - Entrada pelo teclado com `Scanner` e saída no console.
 - Repetição com `while` e `do/while`, métodos `lerQuantidade` e `desejaContinuar` e conversão com `Integer.parseInt`.
 - Tratamento de entrada inválida com `try/catch` e `NumberFormatException`.
-- `ArrayList` para guardar os itens da sessão e um `record` para reunir o nome e as quantidades de cada item.
+- `ArrayList` para guardar os itens da sessão e um `record` para reunir o nome, as quantidades e a justificativa de cada item.
 
 Não há bibliotecas externas. Esta versão não precisa de Docker, Spring Boot ou banco de dados.
 
@@ -78,7 +81,8 @@ Não há bibliotecas externas. Esta versão não precisa de Docker, Spring Boot 
 4. Abra [`src/Main.java`](src/Main.java).
 5. Clique no triângulo verde ao lado do método `main` e selecione **Run**. Também é possível executar a configuração `Confere`.
 6. Na janela **Run**, digite o nome do produto e pressione Enter. Depois, informe cada quantidade, pressionando Enter após cada uma.
-7. Após o resultado, digite `s` para conferir outro produto ou `n` para ver o resumo e sair. Letras maiúsculas e espaços nas extremidades também são aceitos; outras respostas fazem o programa repetir a pergunta.
+7. Se houver divergência, digite a justificativa ou pressione Enter para registrar `A apurar`.
+8. Após o resultado, digite `s` para conferir outro produto ou `n` para ver o resumo e sair. Letras maiúsculas e espaços nas extremidades também são aceitos; outras respostas fazem o programa repetir a pergunta.
 
 ### Experimentar outros resultados
 
@@ -94,7 +98,7 @@ As quantidades devem ser números inteiros entre 0 e 2147483647, inclusive. Zero
 
 Por exemplo, ao digitar `-2` ou `abc` em uma quantidade, aparece a mensagem `Informe um número inteiro entre 0 e 2147483647.`. Digite um valor válido para continuar. A conferência só é calculada depois que todos os campos forem aceitos. Se a entrada terminar antes disso, o programa encerra sem apresentar resultado parcial.
 
-O resumo mostra o total de itens e, para cada um, o nome, as quantidades e o resultado. Cada conferência concluída gera uma linha, mesmo quando o nome de um produto se repete. Se a entrada terminar durante o preenchimento, o resumo inclui apenas os itens já concluídos. A lista é mantida em memória durante a execução.
+O resumo mostra o total de itens e, para cada um, o nome, as quantidades e o resultado. A justificativa aparece logo abaixo do item com divergência. Produtos com o mesmo nome aparecem separadamente. Se a entrada terminar antes de todas as quantidades serem aceitas, o resumo inclui apenas os itens já concluídos. Se terminar ao solicitar a justificativa, o item é registrado com `A apurar`. A lista é mantida em memória durante a execução.
 
 ## Estrutura principal
 
@@ -113,7 +117,8 @@ Evoluções planejadas, a serem desenvolvidas conforme o aprendizado:
 - [x] Validar os dados informados.
 - [x] Permitir realizar uma nova conferência sem reiniciar o programa.
 - [x] Conferir vários itens na mesma sessão e exibir um resumo ao encerrar.
-- [ ] Registrar justificativas para divergências e controlar o encerramento da conferência.
+- [x] Registrar justificativas para divergências.
+- [ ] Controlar o encerramento da conferência.
 - [ ] Estudar o armazenamento do histórico de conferências.
 
 ## Autor e aprendizado

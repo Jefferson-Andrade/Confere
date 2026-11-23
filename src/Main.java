@@ -25,7 +25,12 @@ public class Main {
                 break;
             }
 
-            Conferencia conferencia = new Conferencia(produto, quantidadeEsperada, quantidadeRecebida);
+            String justificativa = "";
+            if (quantidadeEsperada != quantidadeRecebida) {
+                justificativa = lerJustificativa(entrada);
+            }
+            Conferencia conferencia = new Conferencia(
+                    produto, quantidadeEsperada, quantidadeRecebida, justificativa);
             conferencias.add(conferencia);
 
             System.out.println();
@@ -67,7 +72,16 @@ public class Main {
                     + " | Esperada: " + conferencia.quantidadeEsperada()
                     + " | Recebida: " + conferencia.quantidadeRecebida()
                     + " | " + conferencia.resultado());
+            if (!conferencia.justificativa().isEmpty()) {
+                System.out.println("  Justificativa: " + conferencia.justificativa());
+            }
         }
+    }
+
+    private static String lerJustificativa(Scanner entrada) {
+        System.out.print("Justificativa da divergência (Enter para registrar A apurar): ");
+        String justificativa = entrada.hasNextLine() ? entrada.nextLine().strip() : "";
+        return justificativa.isEmpty() ? "A apurar" : justificativa;
     }
 
     private static boolean desejaContinuar(Scanner entrada) {
@@ -110,7 +124,8 @@ public class Main {
         }
     }
 
-    private record Conferencia(String produto, int quantidadeEsperada, int quantidadeRecebida) {
+    private record Conferencia(
+            String produto, int quantidadeEsperada, int quantidadeRecebida, String justificativa) {
         int diferenca() {
             return quantidadeRecebida - quantidadeEsperada;
         }
