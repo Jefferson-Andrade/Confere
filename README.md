@@ -18,8 +18,7 @@ Versão executada no IntelliJ IDEA. O programa recebe pelo teclado o nome de um 
 - Aceita somente quantidades inteiras entre 0 e 2147483647.
 - Solicita novamente apenas o campo inválido, sem encerrar com erro.
 - Permite conferir outro produto sem reiniciar o programa, com a opção `s/n`.
-
-O cadastro de vários produtos e o histórico de conferências ainda não foram implementados.
+- Exibe ao encerrar um resumo dos itens conferidos na sessão, na ordem em que foram informados.
 
 ## Exemplo de execução
 
@@ -35,6 +34,10 @@ Quantidade recebida: 48
 Diferença: -2
 Resultado: faltam 2 unidades.
 Deseja conferir outro produto? (s/n): n
+
+=== RESUMO DA CONFERÊNCIA ===
+Total de itens conferidos: 1
+Fertilizante A | Esperada: 50 | Recebida: 48 | faltam 2 unidades.
 Programa encerrado.
 ```
 
@@ -61,6 +64,7 @@ O programa utiliza `if`, `else if` e `else` para escolher a mensagem corresponde
 - Entrada pelo teclado com `Scanner` e saída no console.
 - Repetição com `while` e `do/while`, métodos `lerQuantidade` e `desejaContinuar` e conversão com `Integer.parseInt`.
 - Tratamento de entrada inválida com `try/catch` e `NumberFormatException`.
+- `ArrayList` para guardar os itens da sessão e um `record` para reunir o nome e as quantidades de cada item.
 
 Não há bibliotecas externas. Esta versão não precisa de Docker, Spring Boot ou banco de dados.
 
@@ -74,7 +78,7 @@ Não há bibliotecas externas. Esta versão não precisa de Docker, Spring Boot 
 4. Abra [`src/Main.java`](src/Main.java).
 5. Clique no triângulo verde ao lado do método `main` e selecione **Run**. Também é possível executar a configuração `Confere`.
 6. Na janela **Run**, digite o nome do produto e pressione Enter. Depois, informe cada quantidade, pressionando Enter após cada uma.
-7. Após o resultado, digite `s` para conferir outro produto ou `n` para sair. Letras maiúsculas e espaços nas extremidades também são aceitos; outras respostas fazem o programa repetir a pergunta.
+7. Após o resultado, digite `s` para conferir outro produto ou `n` para ver o resumo e sair. Letras maiúsculas e espaços nas extremidades também são aceitos; outras respostas fazem o programa repetir a pergunta.
 
 ### Experimentar outros resultados
 
@@ -90,13 +94,13 @@ As quantidades devem ser números inteiros entre 0 e 2147483647, inclusive. Zero
 
 Por exemplo, ao digitar `-2` ou `abc` em uma quantidade, aparece a mensagem `Informe um número inteiro entre 0 e 2147483647.`. Digite um valor válido para continuar. A conferência só é calculada depois que todos os campos forem aceitos. Se a entrada terminar antes disso, o programa encerra sem apresentar resultado parcial.
 
-Cada nova conferência começa com os campos vazios e utiliza apenas os dados do novo produto. Os resultados aparecem no console, mas ainda não são armazenados em histórico. Se a entrada terminar na pergunta `s/n`, o programa encerra normalmente.
+O resumo mostra o total de itens e, para cada um, o nome, as quantidades e o resultado. Cada conferência concluída gera uma linha, mesmo quando o nome de um produto se repete. Se a entrada terminar durante o preenchimento, o resumo inclui apenas os itens já concluídos. A lista é mantida em memória durante a execução.
 
 ## Estrutura principal
 
 | Arquivo | Responsabilidade |
 | --- | --- |
-| `src/Main.java` | Entrada pelo teclado, cálculo, condições e exibição do resultado |
+| `src/Main.java` | Entrada pelo teclado, cálculo e exibição dos resultados e do resumo |
 | `README.md` | Objetivo, funcionamento e instruções de execução |
 | `Confere.iml` e `.idea/` | Configuração do projeto e da execução no IntelliJ |
 | `.gitignore` | Exclusão de arquivos compilados e configurações locais do versionamento |
@@ -108,7 +112,7 @@ Evoluções planejadas, a serem desenvolvidas conforme o aprendizado:
 - [x] Receber o nome do produto e as quantidades pelo teclado com `Scanner`.
 - [x] Validar os dados informados.
 - [x] Permitir realizar uma nova conferência sem reiniciar o programa.
-- [ ] Trabalhar com vários produtos.
+- [x] Conferir vários itens na mesma sessão e exibir um resumo ao encerrar.
 - [ ] Registrar justificativas para divergências e controlar o encerramento da conferência.
 - [ ] Estudar o armazenamento do histórico de conferências.
 
